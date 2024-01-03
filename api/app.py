@@ -1,39 +1,8 @@
 from flask import Flask, request
 import requests
-from chatterbot import ChatBot
+# from chatterbot import ChatBot
 
 app = Flask(__name__)
-
-def chatbot(message):
-    from chatterbot import ChatBot
-    bot = ChatBot(
-        'Buddy',  
-        trainer='chatterbot.trainers.ListTrainer'
-    )
-    from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
-    # trainer = ChatterBotCorpusTrainer(bot)
-    # trainer.train("chatterbot.corpus.english")
-    trainer = ListTrainer(bot)
-    trainer.train([
-    'Hi',
-    'Hello, what\'s your name?',
-    'My name is (*)',
-    'Nice to meet you (*), what do you want me to do?',
-    'I want to see the summary of national graduation exam',
-    'Ok, here you are',
-    'Help me to predict my point',
-    'Sure, give me more details',
-    'My Math score is 9.4, and my Physics and English is 9.75 and 10 respectively',
-    'Ok, here is the result',
-    'Thank you',
-    'You\'r welcome',
-    'Nice to meet you',
-    'Me too',
-    'Sorry',
-    'That\'s ok, I don\'t mind it at all',
-    ''
-    ])
-    return bot.get_response(message)
 
 # This is page access token that you get from facebook developer console.
 PAGE_ACCESS_TOKEN = 'EAALhqZA10PZCwBO3p1Bgdkk9guwDFHM6AZC8sKZCM4XYY8MYDIiAimqoJSZBEs6Nmih7Cjcb04INS1vVgRqiVDSdmVK4pMk6KF87xIPUWQlVTcn4JRwL8vsBipSgKjpQgZAXBcPxGN0yvRnhNzrxljIbwls52yhnJOtgc0JPASVxgAcLGo10MZC1tIx7WSUMJYe2k1p'
@@ -66,7 +35,7 @@ def fbwebhook():
         sender_id = data['entry'][0]['messaging'][0]['sender']['id']
         print(message)
         print(sender_id)
-        text = chatbot(message['text'])
+        text = message_process(message['text'])
         print(text)
         request_body = {
             "recipient": {
