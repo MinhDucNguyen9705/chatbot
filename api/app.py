@@ -1,6 +1,6 @@
 from flask import Flask, request
 import requests
-# from chatterbot import ChatBot
+from chatterbot import ChatBot
 
 app = Flask(__name__)
 
